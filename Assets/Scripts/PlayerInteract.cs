@@ -9,7 +9,8 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private NPCConversation myConversation;
-    [SerializeField] public FirstPersonController firstPersonController;
+
+    private bool isInteracting = false;
 
     private void Update()
     {
@@ -23,23 +24,22 @@ public class PlayerInteract : MonoBehaviour
                 {
                     ConversationManager.Instance.StartConversation(myConversation); //actual action of that happens
 
-                    DisableMouse();
+                    npcinteractable.Interact();
+                    isInteracting = true; // Mark as interacting
+                    return; // Exit the loop after interacting
+
 
                 }
+
             }
 
         }
-      
+       if (isInteracting && Input.GetKeyDown(KeyCode.Escape)) // Press Escape or a specific key to end
+    {
+        ConversationManager.Instance.EndConversation(); // End the conversation
+        isInteracting = false; // Reset interaction state
     }
 
-    private void DisableMouse()
-    {
-        firstPersonController.m_MouseLook.SetCursorLock(false); // Unlock cursor
-        firstPersonController.enabled = false;                 // Disable FPS controller
     }
-    private void EnableMouse()
-    {
-        firstPersonController.m_MouseLook.SetCursorLock(true); // Unlock cursor
-        firstPersonController.enabled = true;                 // Disable FPS controller
-    }
+    
 }

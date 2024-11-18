@@ -565,6 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b17a9f7d324204e853529bfe2f4b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstPersonController: {fileID: 1135836883}
   interactionMessage: Hello, Player!
 --- !u!1 &590024213
 GameObject:
