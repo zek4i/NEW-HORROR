@@ -31,7 +31,7 @@ public class PlayerInteract : MonoBehaviour
             {
                 currentInteractable = interactObj; // Store the current interactable
                 interactText.gameObject.SetActive(true); // Show the interaction text
-                interactText.text = "Press E to Pick Up"; // Set the message
+                interactText.text = "(E)"; // Set the message
 
                 // Handle interaction when E is pressed
                 if (Input.GetKeyDown(KeyCode.E))
