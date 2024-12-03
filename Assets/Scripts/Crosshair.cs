@@ -15,4 +15,9 @@ public class Crosshair : MonoBehaviour
     {
         Screen.lockCursor = true;
     }
+
+    private void OnGUI()
+    {
+        
+    }
 }

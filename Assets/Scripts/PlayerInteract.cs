@@ -1,28 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
+interface IInteractable
+{
+    public void Interact();
+}
 public class PlayerInteract : MonoBehaviour
 {
-    [SerializeField] private Camera playerCamera;
-    [SerializeField] private float interactableDistance = 3f;
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
+    [SerializeField] Transform interactorSource; // Source of the raycast (e.g., camera)
+    [SerializeField] float interactRange = 5f;  // Range of interaction
+    [SerializeField] TextMeshProUGUI interactText; // Text to display for interaction
+
+    private IInteractable currentInteractable; // Track the current interactable object
+
+    private void Start()
+    {
+        interactText.gameObject.SetActive(false); // Ensure the text is hidden initially
+    }
 
     private void Update()
     {
-        RaycastHit hit; //raycast from the center of the camera and checks if there is anything within interactable dist
-        if(Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactableDistance))
+        // Cast a ray from the interactor source forward
+        Ray r = new Ray(interactorSource.position, interactorSource.forward);
+        if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange))
         {
-            TrashPickup trash = hit.collider.GetComponent<TrashPickup>(); //check if it has trash pick up script
-            Debug.Log("yes i can see the trash");
-            if (trash != null)
+            // Check if the object has the IInteractable interface
+            if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {
-                if (Input.GetKeyDown(interactKey))
+                currentInteractable = interactObj; // Store the current interactable
+                interactText.gameObject.SetActive(true); // Show the interaction text
+                interactText.text = "Press E to Pick Up"; // Set the message
+
+                // Handle interaction when E is pressed
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    trash.PickupTrash();  // Call the method to pick up the trash
-                    Debug.Log("yes i can pickup the trash");
+                    interactObj.Interact();
                 }
             }
+            else
+            {
+                ClearInteractable();
+            }
+        }
+        else
+        {
+            ClearInteractable();
+        }
+    }
+
+    // Clear the interactable object and hide the text
+    private void ClearInteractable()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable = null;
+            interactText.gameObject.SetActive(false); // Hide the text
         }
     }
 }
