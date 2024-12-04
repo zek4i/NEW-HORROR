@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private Typewriter typewriter; // Reference to the Typewriter script
 
     private Queue<string> sentences; //fifo best for dialogues
     private bool isDialogueActive = false;
@@ -52,6 +53,7 @@ public class DialogueManager : MonoBehaviour
 
         string sentence = sentences.Dequeue();
         dialogueText.text = sentence;
+        typewriter.StartTyping(sentence);
     }
     void EndDialogue()
     {
