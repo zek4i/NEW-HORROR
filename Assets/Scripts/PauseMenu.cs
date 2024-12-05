@@ -8,8 +8,6 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false; //we dont want to reference this
     public FirstPersonController firstPersonController;
 
-
-
     public GameObject PauseMenuUI; //what are we pausing
 
     private void Start()

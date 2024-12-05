@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+//make a feature later (if necessary) where the previous dialogue is finished when 2 dialogues are tirggered at the same time only then the next dialogue is played
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
@@ -38,7 +38,7 @@ public class DialogueManager : MonoBehaviour
     }
     void Update()
     {
-        if (isDialogueActive && Input.GetKeyDown(KeyCode.E)) // Listen for E key
+        if (isDialogueActive && Input.GetMouseButtonDown(0)) // Listen for E key
         {
             DisplayNextSentence();
         }
