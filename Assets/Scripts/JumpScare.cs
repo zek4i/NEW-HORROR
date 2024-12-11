@@ -5,6 +5,7 @@ using UnityEngine;
 public class JumpScare : MonoBehaviour
 {
     public GameObject jumpscareObject;
+    //use another approach maybe where we create a camera used for just jumpscare in the face ig??
 
     private void Start()
     {
